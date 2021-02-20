@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libscanner.a  CMakeFiles/scanner.dir/common.c.o CMakeFiles/scanner.dir/interface.c.o CMakeFiles/scanner.dir/numbers.c.o CMakeFiles/scanner.dir/strings.c.o CMakeFiles/scanner.dir/symbols.c.o
-/usr/bin/ranlib ../../../lib/libscanner.a
