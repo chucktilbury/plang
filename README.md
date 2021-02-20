@@ -42,7 +42,7 @@ Class data declaration does not allow assignment.
 
 The attribute scope non-terminal is only used inside a class. The type attribute gives the assignment type. These keywords have the meaning one might expect.
 
-![scope-type](/home/chuck/Src/plang/docs/pics/scope-type.jpg)
+![scope-type](docs/pics/scope-type.jpg)
 
 The complex symbol non-terminal is used everywhere a symbol reference is applicable. The complex symbol name refers more to the implementation of the resolver than the actual usage because a simple name is also acceptable there.
 
