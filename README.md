@@ -78,7 +78,7 @@ A method definition is exactly that. These diagrams do not cover the rules for d
 
 ![try-except-clause](docs/pics/try-except-clause.jpg)
 
-![return-statement](/home/chuck/Src/plang/docs/pics/return-statement.jpg)
+![return-statement](docs/pics/return-statement.jpg)
 
 ![switch-case-clause](docs/pics/switch-case-clause.jpg)
 
