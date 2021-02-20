@@ -57,10 +57,6 @@ stdint.h
 ../src/symbols/../include/symbols.h
 stdint.h
 -
-hashtable.h
-../src/symbols/../include/hashtable.h
-scanner.h
-../src/symbols/../include/scanner.h
 
 ../src/symbols/../include/utils.h
 char_buffer.h

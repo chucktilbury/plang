@@ -67,10 +67,6 @@ stdint.h
 ../src/parser/../include/symbols.h
 stdint.h
 -
-hashtable.h
-../src/parser/../include/hashtable.h
-scanner.h
-../src/parser/../include/scanner.h
 
 ../src/parser/../include/utils.h
 char_buffer.h

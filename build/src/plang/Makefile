@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/chuck/Src/plang/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/chuck/Src/plang/build/CMakeFiles /home/chuck/Src/plang/build/src/symbols/CMakeFiles/progress.marks
-	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/symbols/all
+	cd /home/chuck/Src/plang/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/chuck/Src/plang/build/CMakeFiles /home/chuck/Src/plang/build/src/plang/CMakeFiles/progress.marks
+	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/plang/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/chuck/Src/plang/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/symbols/clean
+	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/plang/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,12 +97,12 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/symbols/preinstall
+	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/plang/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/symbols/preinstall
+	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/plang/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
@@ -111,73 +111,46 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/symbols/CMakeFiles/symbols.dir/rule:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/symbols/CMakeFiles/symbols.dir/rule
-.PHONY : src/symbols/CMakeFiles/symbols.dir/rule
+src/plang/CMakeFiles/plang.dir/rule:
+	cd /home/chuck/Src/plang/build && $(MAKE) -f CMakeFiles/Makefile2 src/plang/CMakeFiles/plang.dir/rule
+.PHONY : src/plang/CMakeFiles/plang.dir/rule
 
 # Convenience name for target.
-symbols: src/symbols/CMakeFiles/symbols.dir/rule
+plang: src/plang/CMakeFiles/plang.dir/rule
 
-.PHONY : symbols
+.PHONY : plang
 
 # fast build rule for target.
-symbols/fast:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f src/symbols/CMakeFiles/symbols.dir/build.make src/symbols/CMakeFiles/symbols.dir/build
-.PHONY : symbols/fast
+plang/fast:
+	cd /home/chuck/Src/plang/build && $(MAKE) -f src/plang/CMakeFiles/plang.dir/build.make src/plang/CMakeFiles/plang.dir/build
+.PHONY : plang/fast
 
-resolver.o: resolver.c.o
+plang.o: plang.c.o
 
-.PHONY : resolver.o
-
-# target to build an object file
-resolver.c.o:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f src/symbols/CMakeFiles/symbols.dir/build.make src/symbols/CMakeFiles/symbols.dir/resolver.c.o
-.PHONY : resolver.c.o
-
-resolver.i: resolver.c.i
-
-.PHONY : resolver.i
-
-# target to preprocess a source file
-resolver.c.i:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f src/symbols/CMakeFiles/symbols.dir/build.make src/symbols/CMakeFiles/symbols.dir/resolver.c.i
-.PHONY : resolver.c.i
-
-resolver.s: resolver.c.s
-
-.PHONY : resolver.s
-
-# target to generate assembly for a file
-resolver.c.s:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f src/symbols/CMakeFiles/symbols.dir/build.make src/symbols/CMakeFiles/symbols.dir/resolver.c.s
-.PHONY : resolver.c.s
-
-symbols.o: symbols.c.o
-
-.PHONY : symbols.o
+.PHONY : plang.o
 
 # target to build an object file
-symbols.c.o:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f src/symbols/CMakeFiles/symbols.dir/build.make src/symbols/CMakeFiles/symbols.dir/symbols.c.o
-.PHONY : symbols.c.o
+plang.c.o:
+	cd /home/chuck/Src/plang/build && $(MAKE) -f src/plang/CMakeFiles/plang.dir/build.make src/plang/CMakeFiles/plang.dir/plang.c.o
+.PHONY : plang.c.o
 
-symbols.i: symbols.c.i
+plang.i: plang.c.i
 
-.PHONY : symbols.i
+.PHONY : plang.i
 
 # target to preprocess a source file
-symbols.c.i:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f src/symbols/CMakeFiles/symbols.dir/build.make src/symbols/CMakeFiles/symbols.dir/symbols.c.i
-.PHONY : symbols.c.i
+plang.c.i:
+	cd /home/chuck/Src/plang/build && $(MAKE) -f src/plang/CMakeFiles/plang.dir/build.make src/plang/CMakeFiles/plang.dir/plang.c.i
+.PHONY : plang.c.i
 
-symbols.s: symbols.c.s
+plang.s: plang.c.s
 
-.PHONY : symbols.s
+.PHONY : plang.s
 
 # target to generate assembly for a file
-symbols.c.s:
-	cd /home/chuck/Src/plang/build && $(MAKE) -f src/symbols/CMakeFiles/symbols.dir/build.make src/symbols/CMakeFiles/symbols.dir/symbols.c.s
-.PHONY : symbols.c.s
+plang.c.s:
+	cd /home/chuck/Src/plang/build && $(MAKE) -f src/plang/CMakeFiles/plang.dir/build.make src/plang/CMakeFiles/plang.dir/plang.c.s
+.PHONY : plang.c.s
 
 # Help Target
 help:
@@ -186,14 +159,11 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... symbols"
+	@echo "... plang"
 	@echo "... edit_cache"
-	@echo "... resolver.o"
-	@echo "... resolver.i"
-	@echo "... resolver.s"
-	@echo "... symbols.o"
-	@echo "... symbols.i"
-	@echo "... symbols.s"
+	@echo "... plang.o"
+	@echo "... plang.i"
+	@echo "... plang.s"
 .PHONY : help
 
 

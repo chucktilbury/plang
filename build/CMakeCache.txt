@@ -223,10 +223,10 @@ parser_BINARY_DIR:STATIC=/home/chuck/Src/plang/build/src/parser
 parser_SOURCE_DIR:STATIC=/home/chuck/Src/plang/src/parser
 
 //Value Computed by CMake
-plang_BINARY_DIR:STATIC=/home/chuck/Src/plang/build/src/main
+plang_BINARY_DIR:STATIC=/home/chuck/Src/plang/build/src/plang
 
 //Value Computed by CMake
-plang_SOURCE_DIR:STATIC=/home/chuck/Src/plang/src/main
+plang_SOURCE_DIR:STATIC=/home/chuck/Src/plang/src/plang
 
 //Value Computed by CMake
 scanner_BINARY_DIR:STATIC=/home/chuck/Src/plang/build/src/scanner

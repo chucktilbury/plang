@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/symbols.dir/symbols.c.o"
+  "CMakeFiles/symbols.dir/resolver.c.o"
   "../../../lib/libsymbols.pdb"
   "../../../lib/libsymbols.a"
 )

@@ -2,6 +2,7 @@ project(symbols)
 
 add_library(${PROJECT_NAME} STATIC
     symbols.c
+    resolver.c
 )
 
 target_include_directories(${PROJECT_NAME}

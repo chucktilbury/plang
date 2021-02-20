@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/home/chuck/Src/plang/src/symbols/resolver.c" "/home/chuck/Src/plang/build/src/symbols/CMakeFiles/symbols.dir/resolver.c.o"
   "/home/chuck/Src/plang/src/symbols/symbols.c" "/home/chuck/Src/plang/build/src/symbols/CMakeFiles/symbols.dir/symbols.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

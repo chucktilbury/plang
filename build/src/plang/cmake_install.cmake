@@ -1,4 +1,4 @@
-# Install script for directory: /home/chuck/Src/plang/src
+# Install script for directory: /home/chuck/Src/plang/src/plang
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,15 +35,5 @@ endif()
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/home/chuck/Src/plang/build/src/plang/cmake_install.cmake")
-  include("/home/chuck/Src/plang/build/src/utils/cmake_install.cmake")
-  include("/home/chuck/Src/plang/build/src/parser/cmake_install.cmake")
-  include("/home/chuck/Src/plang/build/src/scanner/cmake_install.cmake")
-  include("/home/chuck/Src/plang/build/src/symbols/cmake_install.cmake")
-
 endif()
 

@@ -133,7 +133,7 @@ plang: cmake_check_build_system
 
 # fast build rule for target.
 plang/fast:
-	$(MAKE) -f src/main/CMakeFiles/plang.dir/build.make src/main/CMakeFiles/plang.dir/build
+	$(MAKE) -f src/plang/CMakeFiles/plang.dir/build.make src/plang/CMakeFiles/plang.dir/build
 .PHONY : plang/fast
 
 #=============================================================================

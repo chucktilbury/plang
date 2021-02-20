@@ -13,8 +13,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.13.4/CMakeSystem.cmake"
   "../docs/plang.doxygen"
   "../src/CMakeLists.txt"
-  "../src/main/CMakeLists.txt"
   "../src/parser/CMakeLists.txt"
+  "../src/plang/CMakeLists.txt"
   "../src/scanner/CMakeLists.txt"
   "../src/symbols/CMakeLists.txt"
   "../src/utils/CMakeLists.txt"
@@ -53,7 +53,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "doxyfile"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "src/main/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/plang/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/utils/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/parser/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/scanner/CMakeFiles/CMakeDirectoryInformation.cmake"
@@ -65,7 +65,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/doc.dir/DependInfo.cmake"
-  "src/main/CMakeFiles/plang.dir/DependInfo.cmake"
+  "src/plang/CMakeFiles/plang.dir/DependInfo.cmake"
   "src/utils/CMakeFiles/utils.dir/DependInfo.cmake"
   "src/parser/CMakeFiles/parser.dir/DependInfo.cmake"
   "src/scanner/CMakeFiles/scanner.dir/DependInfo.cmake"

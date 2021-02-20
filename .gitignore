@@ -1,3 +1,7 @@
+docs/out
+bin
+lib
+
 # Prerequisites
 *.d
 

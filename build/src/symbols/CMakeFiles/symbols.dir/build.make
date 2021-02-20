@@ -70,17 +70,32 @@ src/symbols/CMakeFiles/symbols.dir/symbols.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/symbols.dir/symbols.c.s"
 	cd /home/chuck/Src/plang/build/src/symbols && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/chuck/Src/plang/src/symbols/symbols.c -o CMakeFiles/symbols.dir/symbols.c.s
 
+src/symbols/CMakeFiles/symbols.dir/resolver.c.o: src/symbols/CMakeFiles/symbols.dir/flags.make
+src/symbols/CMakeFiles/symbols.dir/resolver.c.o: ../src/symbols/resolver.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/chuck/Src/plang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object src/symbols/CMakeFiles/symbols.dir/resolver.c.o"
+	cd /home/chuck/Src/plang/build/src/symbols && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/symbols.dir/resolver.c.o   -c /home/chuck/Src/plang/src/symbols/resolver.c
+
+src/symbols/CMakeFiles/symbols.dir/resolver.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/symbols.dir/resolver.c.i"
+	cd /home/chuck/Src/plang/build/src/symbols && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/chuck/Src/plang/src/symbols/resolver.c > CMakeFiles/symbols.dir/resolver.c.i
+
+src/symbols/CMakeFiles/symbols.dir/resolver.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/symbols.dir/resolver.c.s"
+	cd /home/chuck/Src/plang/build/src/symbols && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/chuck/Src/plang/src/symbols/resolver.c -o CMakeFiles/symbols.dir/resolver.c.s
+
 # Object files for target symbols
 symbols_OBJECTS = \
-"CMakeFiles/symbols.dir/symbols.c.o"
+"CMakeFiles/symbols.dir/symbols.c.o" \
+"CMakeFiles/symbols.dir/resolver.c.o"
 
 # External object files for target symbols
 symbols_EXTERNAL_OBJECTS =
 
 ../lib/libsymbols.a: src/symbols/CMakeFiles/symbols.dir/symbols.c.o
+../lib/libsymbols.a: src/symbols/CMakeFiles/symbols.dir/resolver.c.o
 ../lib/libsymbols.a: src/symbols/CMakeFiles/symbols.dir/build.make
 ../lib/libsymbols.a: src/symbols/CMakeFiles/symbols.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chuck/Src/plang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library ../../../lib/libsymbols.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/chuck/Src/plang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library ../../../lib/libsymbols.a"
 	cd /home/chuck/Src/plang/build/src/symbols && $(CMAKE_COMMAND) -P CMakeFiles/symbols.dir/cmake_clean_target.cmake
 	cd /home/chuck/Src/plang/build/src/symbols && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/symbols.dir/link.txt --verbose=$(VERBOSE)
 

@@ -3,9 +3,9 @@
 /home/chuck/Src/plang/build/CMakeFiles/edit_cache.dir
 /home/chuck/Src/plang/build/src/CMakeFiles/rebuild_cache.dir
 /home/chuck/Src/plang/build/src/CMakeFiles/edit_cache.dir
-/home/chuck/Src/plang/build/src/main/CMakeFiles/rebuild_cache.dir
-/home/chuck/Src/plang/build/src/main/CMakeFiles/plang.dir
-/home/chuck/Src/plang/build/src/main/CMakeFiles/edit_cache.dir
+/home/chuck/Src/plang/build/src/plang/CMakeFiles/rebuild_cache.dir
+/home/chuck/Src/plang/build/src/plang/CMakeFiles/plang.dir
+/home/chuck/Src/plang/build/src/plang/CMakeFiles/edit_cache.dir
 /home/chuck/Src/plang/build/src/utils/CMakeFiles/rebuild_cache.dir
 /home/chuck/Src/plang/build/src/utils/CMakeFiles/utils.dir
 /home/chuck/Src/plang/build/src/utils/CMakeFiles/edit_cache.dir
