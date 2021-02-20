@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-cd out/html
-firefox --new-window index.html

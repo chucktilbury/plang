@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/scanner_test.dir/scanner_test.c.o  -o ../../../bin/scanner_test ../../../lib/libscanner.a ../../../lib/libutils.a 

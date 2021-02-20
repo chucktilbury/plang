@@ -1,0 +1,5 @@
+add_subdirectory(main)
+add_subdirectory(utils)
+add_subdirectory(parser)
+add_subdirectory(scanner)
+add_subdirectory(symbols)
