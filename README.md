@@ -2,7 +2,7 @@
 This is the repository for the **Plang** language. The **Plang** language is a mixture of several languages, including C and Python. It is a simple translator that accepts **Plang** and translates it to C. Some other iteration of the language may use LLVM to generate code. This will never be an interpreted language system. 
 
 ## Why?
-The reasons for implementing **Plang** are very simple. I love programming languages and I love writing code. I have always wanted to create a language from scratch and then write a bunch of code in it. I have made numerous attempts, and as of Febuary 2021, this is the latest one. 
+The reasons for implementing **Plang** are very simple. I love programming languages and I love writing code. I have always wanted to create a language from scratch and then write a bunch of code in it. I have made numerous attempts, and as of February 2021, this is the latest one. 
 
 ## Goals
 * **Plang** is object oriented. Only classes are used to implement functionality.
@@ -53,4 +53,34 @@ A formatted string is used everywhere that a quoted string is acceptable, includ
 ![formatted-string](docs/pics/formatted-string.jpg)
 
 A method definition is exactly that. These diagrams do not cover the rules for defining and implementing constructors and destructors. Note that only the type and scope are not given in the method definition because they have already been specified in the declaration. All of the following diagrams support method definitions.
+
+![method-name-definition](docs/pics/method-name-definition.jpg)
+
+![method-name-definition](docs/pics/method-body.jpg)
+
+![method-body-statement](docs/pics/method-body-statement.jpg)
+
+ ![assignment-statement](docs/pics/assignment-statement.jpg)
+
+![func-call-statement](docs/pics/func-call-statement.jpg)
+
+![data-decl](docs/pics/data-decl.jpg)
+
+![data-definition](docs/pics/data-definition.jpg)
+
+![if-else-clause](docs/pics/if-else-clause.jpg)
+
+![while-clause](docs/pics/while-clause.jpg)
+
+![for-clause](docs/pics/for-clause.jpg)
+
+![inline-clause](docs/pics/inline-clause.jpg)
+
+![try-except-clause](docs/pics/try-except-clause.jpg)
+
+![switch-case-clause](docs/pics/switch-case-clause.jpg)
+
+![expressions](docs/pics/expressions.jpg)
+
+
 
