@@ -22,7 +22,7 @@ Legend: ![term-nterm](docs/pics/term-nterm.jpg)
 
 Top level non-terminal is a Module.
 
-![module](/home/chuck/Src/plang/docs/pics/module.jpg)
+![module](docs/pics/module.jpg)
 
 An import statement is used to bring in symbols from another module. It does not bring in that module's implementation. 
 
