@@ -8,11 +8,11 @@ The reasons for implementing **Plang** are very simple. I love programming langu
 * **Plang** is object oriented. Only classes are used to implement functionality.
 * **Plang** is strongly typed but also allows robust casting.
 * **Plang** has garbage collection.
-* **Plang** does not have pointers.
-* **Plang** supports maps, dicts, and lists natively.
+* **Plang** does not have pointers or NULL values.
+* **Plang** supports maps, dictionaries, and lists natively.
 * **Plang** has a simplified native type system that supports ints, uints, floats, bools, and strings natively. 
 * **Plang** follows the notion of having as few keywords and operators as possible, while still being able to implement complex programs. It is intended to be a application language, rather than a system language that has things like bitwise operations.
-* **Plang** follows the notion of having just one way to do something, rather than numerous semantic paths. It's intended to be as simple as possible, but no simpler.
+* **Plang** follows the notion of having a clear and obvious way to do something. There may be more than one semantic paths, but that stems from making a choice to put in optional elements or leave them out. It's intended to be as simple as possible, but no simpler.
 
 ## Syntax
 
