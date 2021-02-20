@@ -18,7 +18,7 @@ The reasons for implementing **Plang** are very simple. I love programming langu
 
 The following is a list of diagrams that show the whole syntax of **Plang**. The only thing that is not shown in the diagrams is the contents of terminal objects such as comments, symbols, strings, and numbers. The intention is to demonstrate the workings of the parser, not the scanner. 
 
-Legend: ![term-nterm](docs/pics/term-nterm.jpg)
+![term-nterm](docs/pics/term-nterm.jpg)
 
 Top level non-terminal is a Module.
 
