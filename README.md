@@ -18,7 +18,7 @@ The reasons for implementing **Plang** are very simple. I love programming langu
 
 The following is a list of diagrams that show the whole syntax of **Plang**. The only thing that is not shown in the diagrams is the contents of terminal objects such as comments, symbols, strings, and numbers. The intention is to demonstrate the workings of the parser, not the scanner. 
 
-Legend: ![term-nterm](/home/chuck/Src/plang/docs/pics/term-nterm.jpg)
+Legend: ![term-nterm](docs/pics/term-nterm.jpg)
 
 Top level non-terminal is a Module.
 
@@ -26,19 +26,19 @@ Top level non-terminal is a Module.
 
 An import statement is used to bring in symbols from another module. It does not bring in that module's implementation. 
 
-![import-statement](/home/chuck/Src/plang/docs/pics/import-statement.jpg)
+![import-statement](docs/pics/import-statement.jpg)
 
 The class declaration is a simple declaration that does not include any initialization. The reason for that is that when the source code is translated into C, the classes become ```typedef struct```s.
 
-![class-decl](/home/chuck/Src/plang/docs/pics/class-decl.jpg)
+![class-decl](docs/pics/class-decl.jpg)
 
 The method and data declarations only contain the scope, the assignment type, and the types of the parameters for method declarations. 
 
-![method-decl](/home/chuck/Src/plang/docs/pics/method-decl.jpg)
+![method-decl](docs/pics/method-decl.jpg)
 
 Class data declaration does not allow assignment. 
 
-![class-data-decl](/home/chuck/Src/plang/docs/pics/class-data-decl.jpg)
+![class-data-decl](docs/pics/class-data-decl.jpg)
 
 The attribute scope non-terminal is only used inside a class. The type attribute gives the assignment type. These keywords have the meaning one might expect.
 
@@ -46,11 +46,11 @@ The attribute scope non-terminal is only used inside a class. The type attribute
 
 The complex symbol non-terminal is used everywhere a symbol reference is applicable. The complex symbol name refers more to the implementation of the resolver than the actual usage because a simple name is also acceptable there.
 
-![complex_name](/home/chuck/Src/plang/docs/pics/complex_name.jpg)
+![complex_name](docs/pics/complex_name.jpg)
 
 A formatted string is used everywhere that a quoted string is acceptable, included as an argument to a formatted string. Note that only double-quoted string can be formatted. Single quoted string are taken to be absolute literals.
 
-![formatted-string](/home/chuck/Src/plang/docs/pics/formatted-string.jpg)
+![formatted-string](docs/pics/formatted-string.jpg)
 
 A method definition is exactly that. These diagrams do not cover the rules for defining and implementing constructors and destructors. Note that only the type and scope are not given in the method definition because they have already been specified in the declaration. All of the following diagrams support method definitions.
 
