@@ -3,13 +3,13 @@
 
 // This is the header file for the utils library
 
-#include "char_buffer.h"
-#include "configure.h"
-#include "errors.h"
-#include "files.h"
-#include "hashtable.h"
-#include "memory.h"
-#include "ptr_lists.h"
+#include "utils/char_buffer.h"
+#include "utils/configure.h"
+#include "utils/errors.h"
+#include "utils/files.h"
+#include "utils/hashtable.h"
+#include "utils/memory.h"
+#include "utils/ptr_lists.h"
 
 
 #endif

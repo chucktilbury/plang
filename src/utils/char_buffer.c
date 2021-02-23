@@ -39,10 +39,12 @@ char_buffer_t create_char_buffer() {
 
 void destroy_char_buffer(char_buffer_t chbuf) {
 
-    __chbuf_t* buf = (__chbuf_t*)chbuf;
-    if(buf->buffer != NULL)
-        FREE(buf->buffer);
-    FREE(buf);
+    if(chbuf != NULL) {
+        __chbuf_t* buf = (__chbuf_t*)chbuf;
+        if(buf->buffer != NULL)
+            FREE(buf->buffer);
+        FREE(buf);
+    }
 }
 
 const char* get_char_buffer(char_buffer_t chbuf) {

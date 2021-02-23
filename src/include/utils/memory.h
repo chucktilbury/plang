@@ -4,8 +4,9 @@
 #define CALLOC memory_calloc
 #define MALLOC memory_malloc
 #define REALLOC memory_realloc
-#define FREE memory_free
 #define STRDUP memory_strdup
+#define ALLOC_DS(t) (t*)memory_calloc(1, sizeof(t))
+#define FREE(p) memory_free((void*)p)
 
 #include <stdlib.h>
 

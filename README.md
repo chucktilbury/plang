@@ -121,11 +121,11 @@ In the above example, the default constructor for ```class1``` is called, which 
 
 ### Destructor
 
-The default destructor is normally all that is required, since the garbage collector should destroy any unreachable memory. However, a destructor may be declared and implemented. This destructor will be called after the default constructor as one would expect. If there is a declaration for a destructor but there is no implementation, then a warning is issued. Destructors accept no parameters and return no value, so they may not be overridden. Multiple declarations or implementations of destructors are a syntax error.
+The default destructor is normally all that is required, since the garbage collector should destroy any unreachable memory. However, a destructor may be declared and implemented. This destructor will be called instead of the default constructor. If there is a declaration for a destructor but there is no implementation, then a warning is issued and the default destructor is used. Destructors accept no parameters and return no value, so they may not be overridden. Multiple declarations, or implementations, or destructors with return type or parameters are a syntax error.  Destructor declaration is optional and ignored.
 
 ## Exception Handling
 
-Exceptions are simplified and only allow for a string to be sent to the handler. The ```raise``` keyword accepts a single parameter of a formatted string. This is aimed at reporting errors more than actually trying to fix them. So exceptions in **Plang** are an error handling mechanism and not a flow control mechanism.  All of the usual signals in a UNIX-like environment are handled as exceptions and a reasonable string string is generated for them. For things like errors when opening files, the runtime code generates an exception and an appropriate string and raises the exception.
+Exceptions are simplified and only allow for a string to be sent to a single handler. The ```raise``` keyword accepts a single parameter of a formatted string. This is aimed at reporting errors more than actually trying to fix them. So exceptions in **Plang** are an error handling mechanism and not a flow control mechanism.  All of the usual signals in a UNIX-like environment are handled as exceptions and a reasonable string string is generated for them. For things like errors when opening files, the runtime code generates an exception and an appropriate string and raises the exception.
 
 Example:
 

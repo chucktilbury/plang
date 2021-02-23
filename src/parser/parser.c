@@ -1,10 +1,9 @@
 #include "common.h"
 
+#include "utils.h"
 #include "scanner.h"
-#include "char_buffer.h"
 #include "parser.h"
 #include "symbols.h"
-#include "files.h"
 
 #include "class_definition.h"
 #include "method_definition.h"

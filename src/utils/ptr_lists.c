@@ -1,11 +1,14 @@
-/*
+/**
+ * @file
+ * ptr_lists.c
+ *
  * This module manages a dynamic list of pointers. The pointers can point to any arbitrary
  * data type and the caller is responsible for freeing the data and making sure that the
  * pointer remains valid through the life of the list.
  */
 #include "common.h"
 
-/*
+/**
  * This resizes the list to grow it. This should always be called before
  * adding aything to it.
  *
@@ -23,7 +26,7 @@ static void resize_list(ptr_list_t* list)
     }
 }
 
-/*
+/**
  * Internal function that calculates a pointer into the buffer, given the index
  * of the intended item. This returns a pointer to the first byte of the item
  * that was stored. It's up to the caller to convert it to a pointer to the data
@@ -37,7 +40,7 @@ static unsigned char* list_at_index(ptr_list_t* list, int index)
 }
 */
 
-/*
+/**
  * Free the list buffer. This is only used when the list will no longer
  * be used, such as when the program ends.
  */
@@ -47,7 +50,7 @@ void destroy_ptr_list(ptr_list_t* list)
     FREE(list);
 }
 
-/*
+/**
  * Initialize a newly created or otherwise existing list.
  */
 void init_ptr_list(ptr_list_t* list) {
@@ -60,7 +63,7 @@ void init_ptr_list(ptr_list_t* list) {
         fatal_error("cannot allocate %lu bytes for managed list buffer", list->capacity * sizeof(void*));
 }
 
-/*
+/**
  * Initially create the list and initialize the contents to initial values.
  * If the list was in use before this, the buffer will be freed.
  *
@@ -79,7 +82,7 @@ ptr_list_t* create_ptr_list(void)
     return list;
 }
 
-/*
+/**
  * Store the given item in the given list at the end of the list.
  */
 void append_ptr_list(ptr_list_t* list, void* item)
@@ -89,7 +92,7 @@ void append_ptr_list(ptr_list_t* list, void* item)
     list->nitems++;
 }
 
-/*
+/**
  * If the index is within the bounds of the list, then return a raw pointer to
  * the element specified. If it is outside the list, or if there is nothing in
  * the list, then return NULL.
@@ -107,7 +110,7 @@ void* get_ptr_list_by_index(ptr_list_t* list, int index)
     return NULL;  // failed
 }
 
-/*
+/**
  * If the index is within the bounds of the list, then return a raw pointer to
  * the element specified. If it is outside the list, or if there is nothing in
  * the list, then return NULL.
@@ -127,7 +130,7 @@ void* get_ptr_list_next(ptr_list_t* list)
     return NULL;  // failed
 }
 
-/*
+/**
  * Reset the internal index to zero.
  */
 void reset_ptr_list(ptr_list_t* list) {

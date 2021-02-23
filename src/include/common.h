@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <errno.h>
+#include <assert.h>
 
 #include "utils.h"
 

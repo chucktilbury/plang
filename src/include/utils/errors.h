@@ -15,4 +15,6 @@ void inc_error_count();
 void inc_warning_count();
 FILE* get_err_stream();
 
+// TODO: Create ASSERT(expr, msg, ...) macro for fatal errors.
+
 #endif

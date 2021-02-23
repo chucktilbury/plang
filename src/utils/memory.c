@@ -20,7 +20,7 @@ void *memory_calloc(size_t num, size_t size) {
 
     void* ptr = calloc(num, size);
     if(ptr == NULL)
-        fatal_error("cannot allocate %lu bytes\n", num*size);
+        fatal_error("cannot calloc %lu bytes\n", num*size);
 
     return ptr;
 }
@@ -29,7 +29,7 @@ void *memory_malloc(size_t size) {
 
     void* ptr = malloc(size);
     if(ptr == NULL)
-        fatal_error("cannot allocate %lu bytes\n", size);
+        fatal_error("cannot malloc %lu bytes\n", size);
 
     return ptr;
 }
