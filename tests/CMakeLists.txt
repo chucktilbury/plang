@@ -1,1 +1,2 @@
 add_subdirectory(scanner_test)
+add_subdirectory(symbols_test)

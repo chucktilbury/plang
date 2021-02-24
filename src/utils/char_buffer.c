@@ -32,7 +32,7 @@ void init_char_buffer(char_buffer_t chbuf) {
 
 char_buffer_t create_char_buffer() {
 
-    __chbuf_t* buf = (__chbuf_t*)CALLOC(1, sizeof(__chbuf_t));
+    __chbuf_t* buf = ALLOC_DS(__chbuf_t);
     init_char_buffer(buf);
     return (char_buffer_t)buf;
 }

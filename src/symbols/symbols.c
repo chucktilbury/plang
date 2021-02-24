@@ -44,7 +44,6 @@ static void destroy_symbol_stack() {
             next = sym->next;
             FREE(sym);
         }
-        FREE(sym_stack);
     }
 }
 
@@ -224,7 +223,6 @@ symbol_t* find_symbol(const char* name) {
 void push_symbol_context(symbol_t* sym) {
 
     assert(sym != NULL);
-    assert(sym_stack != NULL);
 
     symbol_stack_t* stk = ALLOC_DS(symbol_stack_t);
 
@@ -232,9 +230,6 @@ void push_symbol_context(symbol_t* sym) {
     stk->next = sym_stack;
     sym_stack = stk;
 }
-
-/**
- */
 
 /**
  * @brief Pop the symbol context.

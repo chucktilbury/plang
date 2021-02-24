@@ -213,7 +213,7 @@ void open_scanner_file(const char* fname) {
         fatal_error("Cannot open input file: \"%s\": %s", fname, strerror(errno));
     }
 
-    file_stack_t* fstk = (file_stack_t*)CALLOC(1, sizeof(file_stack_t));
+    file_stack_t* fstk = ALLOC_DS(file_stack_t);
     fstk->fname = STRDUP(fname);
     fstk->fp = fp;
     fstk->line_no = 1;
