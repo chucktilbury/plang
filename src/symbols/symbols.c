@@ -6,6 +6,11 @@
  * "siblings" and the child pointer points to symbols that the current name
  * "owns". This is used to help resolve whether a symbol is "in scope" or not.
  *
+ * The children pointers are a double linked list to allow searching the tree,
+ * given the scope of a particular name segment. When a name segment is 
+ * resolved, then the first segment is resolved toward the root. Following 
+ * segments are resolved way from the root. 
+ *
  * The symbol table always has a "root" symbol that can be used on code to
  * specify that the following symbol segments are from the "root" of the tree.
  *
@@ -19,42 +24,12 @@
 
 #include "symbols.h"
 
+// TODO: open context is automatically called for symbol types that require it.
+
 // Symbol table root pointer.
-static symbol_t* root;
-
-// Symbol table context stack.
-typedef struct _symbol_stack_t {
-    symbol_t* sym;
-    struct _symbol_stack_t* next;
-} symbol_stack_t;
-
-symbol_stack_t* sym_stack;
-
-/**
- * @brief Destroy the symbol stack.
- * 
- */
-static void destroy_symbol_stack() {
-
-    if(sym_stack != NULL) {
-        symbol_stack_t* sym;
-        symbol_stack_t* next;
-
-        for(sym = sym_stack; sym != NULL; sym = next) {
-            next = sym->next;
-            FREE(sym);
-        }
-    }
-}
-
-/**
- * @brief Init the symbol stack.
- * 
- */
-static void init_symbol_stack() {
-
-    assert(sym_stack == NULL);
-}
+static symbol_t* root_context = NULL;
+static symbol_context_t* current_context = NULL;
+static int context_serial = 0;
 
 /**
  * @brief Destroy a single symbol.
@@ -71,18 +46,31 @@ static void destroy_symbol(symbol_t* sym) {
 }
 
 /**
+ * @brief Destroy symbol tree object
+ * 
+ * @param sym 
+ */
+static void destroy_symbol_tree(symbol_t* sym) {
+
+    if(sym->left != NULL)
+        destroy_symbol_tree(sym->left);
+    if(sym->right != NULL)
+        destroy_symbol_tree(sym->right);
+    destroy_symbol(sym);
+}
+
+/**
  * @brief Recursive function to destroy tree.
  * 
  */
-void destroy_tree(symbol_t* sym) {
+void destroy_tree(symbol_context_t* cont) {
 
-    if(sym->child != NULL)
-        destroy_tree(sym->child);
-    if(sym->left != NULL)
-        destroy_tree(sym->left);
-    if(sym->right != NULL)
-        destroy_tree(sym->right);
-    destroy_symbol(sym);
+    if(cont != NULL) {
+        if(cont->sym != NULL)
+            destroy_symbol_tree(cont->sym);
+        if(cont->next != NULL)
+            destroy_tree(cont->next);
+    }
 }
 
 /**
@@ -91,8 +79,13 @@ void destroy_tree(symbol_t* sym) {
  */
 static void destroy_table() {
 
-    destroy_tree(root);
+    destroy_tree(root_context->context);
+    destroy_symbol(root_context);
 }
+
+/**********************
+ * Interface
+ */
 
 /**
  * @brief This stores the "root" symbol and sets up the destroy function.
@@ -100,19 +93,23 @@ static void destroy_table() {
  */
 void init_symbol_table() {
 
-    init_symbol_stack();
+    assert(root_context == NULL);
+    assert(current_context == NULL);
 
     // fill out the symbol
-    symbol_t* sym = create_symbol("root");
+    symbol_t* sym = create_symbol("object");
     sym->name_type = SYM_NO_NAME_TYPE;
     sym->assign_type = SYM_NO_ASSIGN_TYPE;
     sym->scope = SYM_PUBLIC_SCOPE_TYPE;
 
-    // assign the root
-    root = sym;
-    push_symbol_context(sym);
+    root_context = sym;
+    symbol_context_t* cont = ALLOC_DS(symbol_context_t);
 
-    atexit(destroy_symbol_stack);
+    // assign the root context
+    sym->context = cont;
+    current_context = cont;
+    //open_symbol_context(NULL);
+
     atexit(destroy_table);
 }
 
@@ -128,8 +125,6 @@ void init_symbol_table() {
  * @return symbol_t* 
  */
 symbol_t* create_symbol(const char* name) {
-
-    assert(name != NULL);
 
     symbol_t* sym = ALLOC_DS(symbol_t);
     if(name != NULL)
@@ -152,29 +147,36 @@ symbol_t* create_symbol(const char* name) {
 symbol_error_t store_symbol(symbol_t* sym) {
 
     assert(sym != NULL);
-    assert(sym_stack != NULL);
+    assert(sym->name != NULL);
+    assert(current_context != NULL);
 
-    symbol_t* tmpsym = sym_stack->sym;
+    symbol_t* tmpsym = current_context->sym;
     
-    while(tmpsym != NULL) {
-        int cmp = strcmp(sym->name, tmpsym->name);
-        if(cmp == 0)
-            return SYM_EXISTS;
-        else if(cmp < 0) {
-            if(tmpsym->left == NULL) {
-                tmpsym->left = sym;
-                return SYM_NO_ERROR;
+    if(tmpsym == NULL) {
+        current_context->sym = sym;
+        return SYM_NO_ERROR;
+    }
+    else {
+        while(tmpsym != NULL) {
+            int cmp = strcmp(sym->name, tmpsym->name);
+            if(cmp == 0)
+                return SYM_EXISTS;
+            else if(cmp < 0) {
+                if(tmpsym->left == NULL) {
+                    tmpsym->left = sym;
+                    return SYM_NO_ERROR;
+                }
+                else
+                    tmpsym = tmpsym->left;
             }
-            else
-                tmpsym = tmpsym->left;
-        }
-        else {
-            if(tmpsym->right == NULL) {
-                tmpsym->right = sym;
-                return SYM_NO_ERROR;
+            else {
+                if(tmpsym->right == NULL) {
+                    tmpsym->right = sym;
+                    return SYM_NO_ERROR;
+                }
+                else
+                    tmpsym = tmpsym->right;
             }
-            else
-                tmpsym = tmpsym->right;
         }
     }
 
@@ -196,9 +198,9 @@ symbol_error_t store_symbol(symbol_t* sym) {
 symbol_t* find_symbol(const char* name) {
 
     assert(name != NULL);
-    assert(sym_stack != NULL);
+    assert(current_context != NULL);
 
-    symbol_t* retv = sym_stack->sym;
+    symbol_t* retv = current_context->sym;
 
     while(retv != NULL) {
         int cmp = strcmp(name, retv->name);
@@ -211,50 +213,121 @@ symbol_t* find_symbol(const char* name) {
     return retv;
 }
 
-/**
- * @brief Push the current symbol on the context stack.
- * 
- * Push the current symbol on the context stack. This is to be called when a
- * new symbol context is to become the current context, including anonymous
- * contexts. A new context is pushed whenever a '{' token is read.
- *
- * @param sym 
- */
-void push_symbol_context(symbol_t* sym) {
+static void add_context(symbol_t* sym) {
 
+    assert(current_context != NULL);
     assert(sym != NULL);
+    // cannot open symbol table if one is already open on this name
+    assert(sym->context == NULL);
 
-    symbol_stack_t* stk = ALLOC_DS(symbol_stack_t);
+    symbol_context_t* cont = ALLOC_DS(symbol_context_t);
 
-    stk->sym = sym;
-    stk->next = sym_stack;
-    sym_stack = stk;
+    //printf("cont NULL cont = %p\n", cont);
+    sym->context = cont;
+    cont->prev = current_context;
+    current_context->next = cont;
+    current_context = cont;
 }
 
 /**
- * @brief Pop the symbol context.
- *
- *  The symbol context is popped when a '}' token is read.
+ * @brief Create and store a new symbol table context.
+ * 
+ * If the name is NULL, then create an anonymous context in the current one. 
+ * Otherwise, find the name in the current context and open a context on it. 
+ * 
+ * @param name 
+ * @return symbol_error_t 
  */
-symbol_t* pop_symbol_context() {
+symbol_error_t open_symbol_context(const char* name) {
 
-    assert(sym_stack != NULL);
+    if(name != NULL) {
+        // create a context on the name given and make it the current one
+        symbol_t* sym = find_symbol(name);
 
-    symbol_t* sym = sym_stack->sym;
-    symbol_stack_t* sst = sym_stack;
+        if(sym == NULL) {
+            syntax("Cannot open context: symbol '%s' is not defined.", name);
+            return SYM_NOT_FOUND;
+        }
+        else {
+            add_context(sym);
+        }
+    }
+    else {
+        // create an anonymous context on the current one and make it current
+        char tbuf[10];
+        sprintf(tbuf, "%09d", context_serial++);
+        symbol_t* sym = create_symbol(tbuf);
+        store_symbol(sym);
+        add_context(sym);
+    }
 
-    sym_stack = sym_stack->next;
-    FREE(sst);
-
-    return sym;
+    return SYM_NO_ERROR;
 }
 
 /**
- * @brief Return the top of the symbol context stack, but don't pop it.
+ * @brief Revert the current context back to the previous one.
+ * 
+ * If the previous context is the root context, then there is no context to 
+ * close, so return SYM_CONTEXT_ERROR. Otherwise, return SYM_NO_ERROR.
+ *
+ * @return symbol_error_t 
+ */
+symbol_error_t close_symbol_context() {
+
+    assert(current_context != NULL);
+    assert(current_context->prev != NULL);
+
+    symbol_t* sym = current_context->prev->sym;
+
+    if(!strcmp(sym->name, "object")) 
+        return SYM_CONTEXT_ERROR;
+    else
+        current_context = current_context->prev;
+
+    return SYM_NO_ERROR;
+}
+
+/**
+ * @brief Get the symbol object in the current table context.
  * 
  * @return symbol_t* 
  */
-symbol_t* peek_symbol_context() {
+symbol_t* get_symbol_context() {
 
-    return sym_stack->sym;
+    return current_context->prev->sym;
+}
+
+static int dump_indent = 0;
+static void print_sym(symbol_t* sym) {
+
+    for(int i = 0; i < dump_indent; i++)
+        fputc('-', stdout);
+
+    printf("%s\n", sym->name);
+}
+
+static void dump_symbols(symbol_t* sym) {
+
+    if(sym != NULL) {
+        if(sym->left != NULL)
+            dump_symbols(sym->left);
+        if(sym->right != NULL)
+            dump_symbols(sym->right);
+        print_sym(sym);
+        
+        if(sym->context != NULL) {
+            dump_indent++;
+            dump_symbols(sym->context->sym);
+            dump_indent--;
+        }
+    }
+}
+
+/**
+ * @brief For debugging. Dump a list of everything in the symbol table.
+ * 
+ */
+void dump_symbol_table() {
+
+    dump_symbols(root_context);
 }

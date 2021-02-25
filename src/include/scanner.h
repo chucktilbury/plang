@@ -1,6 +1,8 @@
 #ifndef __SCANNER_H__
 #define __SCANNER_H__
 
+// TODO: Add "object" as a special symbol
+
 typedef enum {
     NONE_TOKEN = 0,
     ERROR_TOKEN,

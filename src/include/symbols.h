@@ -11,6 +11,7 @@ typedef enum {
     SYM_NO_ERROR = 300, // Success
     SYM_EXISTS,         // Failed to add because the name already exists
     SYM_NOT_FOUND,      // Failed to find the name.
+    SYM_CONTEXT_ERROR,  // Sym table context could not be closed.
     SYM_ERROR,          // Covers things like an invalid state. Normally fatal.
 } symbol_error_t;
 
@@ -59,8 +60,18 @@ typedef enum {
     SYM_PROTECTED_SCOPE_TYPE,
 } symbol_scope_t;
 
-typedef struct _symbol_t {
+// When a context is opened, this data structure is stored in the current 
+// context. A pointer to the previous context is stored and the next 
+// context is NULL. The previous context's next pointer is updated to 
+// point to this context. This allows the resolver to move back and forth in
+// the contexts that have been saved. No symbol is saved by opening a context.
+typedef struct _symbol_context_t {
+    struct _symbol_t* sym;          // tree that holds symbols for this context
+    struct _symbol_context_t* prev; // pointer to the symbol that holds the previous context
+    struct _symbol_context_t* next; // pointer to the symbol that holds the next context
+} symbol_context_t;
 
+typedef struct _symbol_t {
     // symbol attributes
     const char* name;       // search name of the symbol.
     name_type_t name_type;
@@ -83,7 +94,7 @@ typedef struct _symbol_t {
     // pointers for the tree
     struct _symbol_t* left;
     struct _symbol_t* right;
-    struct _symbol_t* child;
+    symbol_context_t* context;
 } symbol_t;
 
 // defined in symbols.c
@@ -91,9 +102,10 @@ void init_symbol_table();
 symbol_t* create_symbol(const char* name);
 symbol_error_t store_symbol(symbol_t* sym);
 symbol_t* find_symbol(const char* name);
-void push_symbol_context(symbol_t* sym);
-symbol_t* pop_symbol_context();
-symbol_t* peek_symbol_context();
+symbol_error_t open_symbol_context(const char* name);
+symbol_error_t close_symbol_context();
+symbol_t* get_symbol_context();
+void dump_symbol_table();
 
 // defined in resolver.c
 

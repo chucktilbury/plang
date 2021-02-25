@@ -1,15 +1,8 @@
 /**
- * @file symbols_test.c
+ * @file resolve_symbols.c
  * @brief Test the symbol table functionality.
  *
  * Functions to test:
- * void init_symbol_table();
- * symbol_t* create_symbol(const char*);
- * symbol_error_t store_symbol(symbol_t*);
- * symbol_t* find_symbol(const char*);
- * void push_symbol_context(symbol_t*);
- * symbol_t* pop_symbol_context();
- * symbol_t* peek_symbol_context();
  * 
  * Use a debugger to really verify this. Otherwise, it's a sanity check.
  */
@@ -51,6 +44,7 @@ int main() {
     else
         printf("sym: '%s' was not stored, and was not found\n", "mnbgdf");
 
+    /*
     sym = create_symbol("somethingelse");
     push_symbol_context(sym);
     sym = peek_symbol_context();
@@ -73,6 +67,7 @@ int main() {
         sym = find_symbol(strs[i]);
         print_sym(sym, i, strs[i]);
     }
+    */
 
     return 0;
 }
