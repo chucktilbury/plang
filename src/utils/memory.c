@@ -1,6 +1,28 @@
-/*
+/**
+    @file memory.c
+
     This is a simple wrapper around the memory allocation routines to make
     error handling easier. All memory allocation errors are fatal errors.
+
+    I considered adding garbage collection to this compiler. But I kept running
+    into the question of why? This program runs one time and when it ends, the
+    memory it has allocated is freed by the system. Any memory leak would have 
+    to be catastrophic to matter. So, the runtime of the output will have GC, 
+    but not the compiler. 
+
+    What this code does need is a way to check if proper cleanup is happening. 
+    The reason that is needed is to verify that allocated memory is actually 
+    getting used for something. A little like checking for unused parameters to
+    a function, but for allocated memory. (low priority to implement)
+
+    To that end, a list of allocate memory needs to be kept, along with file
+    names and line numbers so that when the program ends, what memory that has
+    been allocated, but not freed, can be dumped. 
+
+    Reference links:
+    https://maplant.com/gc.html
+    https://github.com/mkirchner/gc
+
 */
 #include "common.h"
 
@@ -14,6 +36,7 @@ void init_memory() {
     void* ptr = malloc(1);
     // fprintf(stderr, "stk=%p, mal=%p, glo=%p\n", &stackvar, ptr, &mem_segment);
     mem_segment = GET_SEG(ptr);
+    free(ptr);
 }
 
 void *memory_calloc(const char* file, const char* func, int line, size_t num, size_t size) {
