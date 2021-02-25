@@ -100,6 +100,14 @@ int main() {
         store_symbol(sym);
     }
 
+    open_symbol_context(NULL);  // level 4
+    for(int i = 0; strs1[i] != NULL; i++) {
+        sym = create_symbol(strs1[i]);
+        store_symbol(sym);
+    }
+
+
+    printf("\n--- dump the table ---\n");
     dump_symbol_table();
 
     return 0;

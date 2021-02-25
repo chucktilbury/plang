@@ -16,46 +16,41 @@ void init_memory() {
     mem_segment = GET_SEG(ptr);
 }
 
-void *memory_calloc(size_t num, size_t size) {
+void *memory_calloc(const char* file, const char* func, int line, size_t num, size_t size) {
 
     void* ptr = calloc(num, size);
-    if(ptr == NULL)
-        fatal_error("cannot calloc %lu bytes\n", num*size);
-
+    LOC_ASSERT(file, func, line, ptr != NULL, "cannot calloc %lu bytes\n", num*size);
     return ptr;
 }
 
-void *memory_malloc(size_t size) {
+void *memory_malloc(const char* file, const char* func, int line, size_t size) {
 
     void* ptr = malloc(size);
-    if(ptr == NULL)
-        fatal_error("cannot malloc %lu bytes\n", size);
+    LOC_ASSERT(file, func, line, ptr != NULL, "cannot malloc %lu bytes\n", size);
 
     return ptr;
 }
 
-void *memory_realloc(void* ptr, size_t size) {
+void *memory_realloc(const char* file, const char* func, int line, void* ptr, size_t size) {
 
     void* nptr = realloc(ptr, size);
-    if(nptr == NULL)
-        fatal_error("cannot reallocate %lu bytes\n", size);
+    LOC_ASSERT(file, func, line, nptr != NULL, "cannot reallocate %lu bytes\n", size);
 
     return nptr;
 }
 
-void memory_free(void* ptr) {
+void memory_free(const char* file, const char* func, int line, void* ptr) {
 
     if(mem_segment != GET_SEG(ptr))
-        fatal_error("Attempt to free a pointer that was not allocated: %p\n", ptr);
+        fatal_error("%s: %s:%d assert failed: Attempt to free a pointer that was not allocated: %p\n", file, func, line, ptr);
     else
         free(ptr);
 }
 
-char* memory_strdup(const char* str) {
+char* memory_strdup(const char* file, const char* func, int line, const char* str) {
 
     char* nptr = strdup(str);
-    if(nptr == NULL)
-        fatal_error("cannot strdup %lu bytes\n", strlen(str));
+    LOC_ASSERT(file, func, line, nptr != NULL, "cannot strdup %lu bytes\n", strlen(str));
 
     return nptr;
 }

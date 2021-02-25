@@ -20,9 +20,6 @@ static void resize_list(ptr_list_t* list)
     {
         list->capacity = list->capacity << 1;
         list->buffer = REALLOC(list->buffer, list->capacity * sizeof(void*));
-
-        if(list->buffer == NULL)
-            fatal_error("cannot allocate %lu bytes for managed buffer", list->capacity * sizeof(void*));
     }
 }
 
@@ -59,8 +56,6 @@ void init_ptr_list(ptr_list_t* list) {
     list->nitems = 0;
     list->index = 0;
     list->buffer = (void**)CALLOC(list->capacity, sizeof(void*));
-    if(list->buffer == NULL)
-        fatal_error("cannot allocate %lu bytes for managed list buffer", list->capacity * sizeof(void*));
 }
 
 /**
@@ -74,8 +69,6 @@ ptr_list_t* create_ptr_list(void)
     ptr_list_t* list;
 
     list = (ptr_list_t*)MALLOC(sizeof(ptr_list_t));
-    if(list == NULL)
-        fatal_error("cannot allocate %lu bytes for managed list", sizeof(ptr_list_t));
 
     init_ptr_list(list);
 

@@ -16,5 +16,12 @@ void inc_warning_count();
 FILE* get_err_stream();
 
 // TODO: Create ASSERT(expr, msg, ...) macro for fatal errors.
+void internal_assert(const char* file, const char* func, int line, 
+                    const char* expr, int expr_val, const char* str, ...);
 
+#define __FILENAME__ (strrchr(__FILE__, '/')? strrchr(__FILE__, '/')+1: __FILE__ )
+#define ASSERT(expr, msg, ...) internal_assert(__FILENAME__, __func__, __LINE__, \
+                                    #expr, expr, msg, __VA_ARGS__)
+#define LOC_ASSERT(fi, fu, li, expr, msg, ...) internal_assert(fi, fu, li, \
+                                    #expr, expr, msg, __VA_ARGS__)
 #endif

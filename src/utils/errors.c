@@ -119,3 +119,35 @@ void inc_warning_count() {
 FILE* get_err_stream() {
     return errors.fp;
 }
+
+/**
+ * @brief This is a replacement for the assert std library function. It uses exit() rather than abort().
+ * 
+ * Fatal error that accepts an expression. It prints the file and line number, etc. Called using the 
+ * ABORT() macro found in the error.h header file.
+ *
+ * @param file 
+ * @param func 
+ * @param line 
+ * @param expr 
+ * @param expr_val 
+ * @param str 
+ * @param ... 
+ */
+void internal_assert(const char* file, const char* func, int line, const char* expr, int expr_val, const char* str, ...) {
+
+    if(!expr_val) {
+        va_list args;
+
+        snprintf(msg_buff, sizeof(msg_buff), "fatal error: %s: %s:%d assert failed: (%s): ", file, func, line, expr);
+
+        int len = strlen(msg_buff);
+
+        va_start(args, str);
+        vsnprintf(&msg_buff[len], sizeof(msg_buff) - len, str, args);
+        va_end(args);
+        errors.errors++;
+        fprintf(stderr, "%s\n", msg_buff);
+        exit(1);
+    }
+}

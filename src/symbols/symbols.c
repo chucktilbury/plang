@@ -284,6 +284,7 @@ symbol_error_t close_symbol_context() {
     else
         current_context = current_context->prev;
 
+    context_serial = 0;
     return SYM_NO_ERROR;
 }
 
