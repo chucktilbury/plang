@@ -1,24 +1,20 @@
 /**
- * @file symbols/symbols.c
- * @brief Symbol table
- *
- * Symbols are kept in a tree structure. The left and right pointers point to
- * "siblings" and the child pointer points to symbols that the current name
- * "owns". This is used to help resolve whether a symbol is "in scope" or not.
- *
- * The children pointers are a double linked list to allow searching the tree,
- * given the scope of a particular name segment. When a name segment is 
- * resolved, then the first segment is resolved toward the root. Following 
- * segments are resolved way from the root. 
- *
- * The symbol table always has a "root" symbol that can be used on code to
- * specify that the following symbol segments are from the "root" of the tree.
- *
- * All symbols are stored by their root name. For example, a symbol like
- * "name.asdf.plart" has "plart" as its root. All of the type information and
- * value information, if any, is stored by that name in the tree.
- *
- */
+    @file symbols/symbols.c
+    
+    @brief Symbol table 
+    
+    Symbols are kept in a tree structure. The left and right pointers point to
+    "siblings" and the child pointer points to symbols that the current name
+    "owns". This is used to help resolve whether a symbol is "in scope" or not.
+
+    The symbol table always has a "root" symbol that can be used on code to
+    specify that the following symbol segments are from the "root" of the tree.
+
+    All symbols are stored by their root name. For example, a symbol like
+    "name.asdf.plart" has "plart" as its root. All of the type information and
+    value information, if any, is stored by that name in the tree.
+
+**/
 #include "common.h"
 #include "scanner.h"
 
@@ -27,15 +23,15 @@
 // TODO: open context is automatically called for symbol types that require it.
 
 // Symbol table root pointer.
-static symbol_t* root_context = NULL;
+symbol_t* root_context = NULL;  // shared with the resolver
 static symbol_context_t* current_context = NULL;
 static int context_serial = 0;
 
 /**
- * @brief Destroy a single symbol.
- * 
- * @param sym 
- */
+    @brief Destroy a single symbol.
+    
+    @param sym 
+**/
 static void destroy_symbol(symbol_t* sym) {
 
     if(sym != NULL) {
@@ -46,10 +42,10 @@ static void destroy_symbol(symbol_t* sym) {
 }
 
 /**
- * @brief Destroy symbol tree object
- * 
- * @param sym 
- */
+    @brief Destroy symbol tree object
+    
+    @param sym 
+**/
 static void destroy_symbol_tree(symbol_t* sym) {
 
     if(sym->left != NULL)
@@ -60,9 +56,10 @@ static void destroy_symbol_tree(symbol_t* sym) {
 }
 
 /**
- * @brief Recursive function to destroy tree.
- * 
- */
+    @brief Recursive function to destroy tree.
+    
+    @param cont 
+**/
 void destroy_tree(symbol_context_t* cont) {
 
     if(cont != NULL) {
@@ -74,23 +71,23 @@ void destroy_tree(symbol_context_t* cont) {
 }
 
 /**
- * @brief This is called by the atexit() routine.
- * 
- */
+    @brief This is called by the atexit() routine.
+    
+**/
 static void destroy_table() {
 
     destroy_tree(root_context->context);
     destroy_symbol(root_context);
 }
 
-/**********************
- * Interface
- */
+/*****************************************************
+    Interface
+*****************************************************/
 
 /**
- * @brief This stores the "root" symbol and sets up the destroy function.
- * 
- */
+    @brief This stores the "root" symbol and sets up the destroy function.
+    
+**/
 void init_symbol_table() {
 
     assert(root_context == NULL);
@@ -114,16 +111,17 @@ void init_symbol_table() {
 }
 
 /**
- * @brief Create a symbol object.
- *
- * Allocate memory for a symbol and assign the name. The caller then will fill
- * in the data structure as required. The name may be NULL when the situation 
- * calls for that, but trying to store a symbol with a NULL name will cause a 
- * fatal error.
- * 
- * @param name 
- * @return symbol_t* 
- */
+    @brief Create a symbol object
+    
+    Allocate memory for a symbol and assign the name. The caller then will fill
+    in the data structure as required. The name may be NULL when the situation 
+    calls for that, but trying to store a symbol with a NULL name will cause a 
+    fatal error.
+
+    @param name 
+    @return symbol_t* 
+
+**/
 symbol_t* create_symbol(const char* name) {
 
     symbol_t* sym = ALLOC_DS(symbol_t);
@@ -134,16 +132,17 @@ symbol_t* create_symbol(const char* name) {
 }
 
 /**
- * @brief Store the completed symbol into the table.
- *
- * Store the completed symbol into the table according to the current symbol
- * context on the top of the context stack. The symbol will be a "sibling" to
- * the current context. Returns SYM_NO_ERROR if the symbol was stored, 
- * otherwise returns an error code.
- * 
- * @param sym 
- * @return symbol_error_t 
- */
+    @brief Store the completed symbol into the table.
+    
+    Store the completed symbol into the table according to the current symbol
+    context on the top of the context stack. The symbol will be a "sibling" to
+    the current context. Returns SYM_NO_ERROR if the symbol was stored, 
+    otherwise returns an error code.
+
+    @param sym 
+    @return symbol_error_t 
+
+**/
 symbol_error_t store_symbol(symbol_t* sym) {
 
     assert(sym != NULL);
@@ -185,16 +184,17 @@ symbol_error_t store_symbol(symbol_t* sym) {
 }
 
 /**
- * @brief Find a symbol in the current symbol context.
- *
- * This does not have the ability to change the context, as the resolver does. 
- * The children of the current context is also searched. The symbol data 
- * structure is returned if it is found, otherwise, return NULL. Does not 
- * return the symbol context.
- * 
- * @param name 
- * @return symbol_t* 
- */
+    @brief Find a symbol in the current symbol context.
+    
+    This does not have the ability to change the context, as the resolver does. 
+    The children of the current context is also searched. The symbol data 
+    structure is returned if it is found, otherwise, return NULL. Does not 
+    return the symbol context.
+
+    @param name 
+    @return symbol_t* 
+
+**/
 symbol_t* find_symbol(const char* name) {
 
     assert(name != NULL);
@@ -213,6 +213,15 @@ symbol_t* find_symbol(const char* name) {
     return retv;
 }
 
+/**
+    @brief Create a context entry and add it to the symbol.
+
+    Links the context entry to the previous context so that it can be traced
+    by the resolver.
+    
+    @param sym 
+
+**/
 static void add_context(symbol_t* sym) {
 
     assert(current_context != NULL);
@@ -230,14 +239,15 @@ static void add_context(symbol_t* sym) {
 }
 
 /**
- * @brief Create and store a new symbol table context.
- * 
- * If the name is NULL, then create an anonymous context in the current one. 
- * Otherwise, find the name in the current context and open a context on it. 
- * 
- * @param name 
- * @return symbol_error_t 
- */
+    @brief Create and store a new symbol table context. 
+    
+    If the name is NULL, then create an anonymous context in the current one. 
+    Otherwise, find the name in the current context and open a context on it. 
+
+    @param name 
+    @return symbol_error_t 
+
+**/
 symbol_error_t open_symbol_context(const char* name) {
 
     if(name != NULL) {
@@ -265,13 +275,14 @@ symbol_error_t open_symbol_context(const char* name) {
 }
 
 /**
- * @brief Revert the current context back to the previous one.
- * 
- * If the previous context is the root context, then there is no context to 
- * close, so return SYM_CONTEXT_ERROR. Otherwise, return SYM_NO_ERROR.
- *
- * @return symbol_error_t 
- */
+    @brief Revert the current context back to the previous one. 
+    
+    If the previous context is the root context, then there is no context to 
+    close, so return SYM_CONTEXT_ERROR. Otherwise, return SYM_NO_ERROR.
+
+    @return symbol_error_t 
+
+**/
 symbol_error_t close_symbol_context() {
 
     assert(current_context != NULL);
@@ -289,15 +300,20 @@ symbol_error_t close_symbol_context() {
 }
 
 /**
- * @brief Get the symbol object in the current table context.
- * 
- * @return symbol_t* 
- */
+    @brief Get the symbol object in the current table context.
+    
+    @return symbol_t* 
+    
+**/
 symbol_t* get_symbol_context() {
 
     return current_context->prev->sym;
 }
 
+/**
+    @brief print out the whole symbol table
+    
+**/
 static int dump_indent = 0;
 static void print_sym(symbol_t* sym) {
 
@@ -325,9 +341,9 @@ static void dump_symbols(symbol_t* sym) {
 }
 
 /**
- * @brief For debugging. Dump a list of everything in the symbol table.
- * 
- */
+    @brief For debugging. Dump a list of everything in the symbol table.
+    
+**/
 void dump_symbol_table() {
 
     dump_symbols(root_context);

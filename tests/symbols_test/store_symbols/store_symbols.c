@@ -18,6 +18,9 @@
 #include "common.h"
 #include "symbols.h"
 
+// TODO: fill in the rest of the symbol context.
+// TODO: convert this to formal unit tests.
+
 /*
     if the flag is true, then the test passes if the symbol is not NULL. If the
     flag is false, then the test passes if the symbol is NULL.

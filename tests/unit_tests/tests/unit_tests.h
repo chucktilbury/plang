@@ -389,6 +389,9 @@ static inline void unit_print(const char *preamble,
                               const char *fmt, ...) {
     va_list args;
 
+    // TODO: Find a way to print this message without causing malloc() to be
+    // called. Malloc() always gets called the first time that printf() gets 
+    // called.
     //printf("%s: %s: %s: %d: %s: ", preamble, file_name, func_name, line_no, sname);
     printf("%s: %d: %s: %s: ", preamble, line_no, func_name, sname);
     va_start(args, fmt);

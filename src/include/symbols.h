@@ -60,9 +60,9 @@ typedef enum {
     SYM_PROTECTED_SCOPE_TYPE,
 } symbol_scope_t;
 
-// When a context is opened, this data structure is stored in the current 
-// context. A pointer to the previous context is stored and the next 
-// context is NULL. The previous context's next pointer is updated to 
+// When a context is opened, this data structure is stored in the current
+// context. A pointer to the previous context is stored and the next
+// context is NULL. The previous context's next pointer is updated to
 // point to this context. This allows the resolver to move back and forth in
 // the contexts that have been saved. No symbol is saved by opening a context.
 typedef struct _symbol_context_t {
@@ -108,6 +108,8 @@ symbol_t* get_symbol_context();
 void dump_symbol_table();
 
 // defined in resolver.c
-
+symbol_t* open_resolver(const char* name);
+symbol_t* resolve_symbol(const char* name);
+symbol_t* close_resolver();
 
 #endif
